@@ -1,6 +1,6 @@
 package e1;
 
-import Ejercicio1.StringUtilities;
+import e1.StringUtilities;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

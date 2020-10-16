@@ -1,5 +1,6 @@
 package e4;
 
+import e4.TrafficJunction;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

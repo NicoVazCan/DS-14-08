@@ -1,6 +1,6 @@
 package e2;
 
-import Ejercicio2.Code;
+import e2.Code;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

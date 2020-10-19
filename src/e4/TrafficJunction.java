@@ -6,29 +6,45 @@ public class TrafficJunction
 	 * Creates a traffic junction with four traffic lights named north , south ,
 	 * east and west . The north traffic light has just started its green cycle .
 	 */
+	private static int entTiempo;
+	private static boolean bolParpadeo = false;
+	private static final String[] arySEMAFOROS = {"NORTH", "SOUTH", "EAST", "WEST"};
 
-
-
-	enum Semaforo
+	private enum Semaforo
 	{
-		NORTH, SOUTH, EAST, WEST;
+		NORTH(0), SOUTH(22), EAST(44), WEST(66);
 
-		private int entValor;
+		private int entRetraso;
 
-		public void Semaforo(int entEntrada)
+		Semaforo(int entRetraso)
 		{
-			entValor = entEntrada;
+			this.entRetraso = entRetraso;
 		}
-
-		public int getSemaforo()
+		public int getRetraso()
 		{
-			return entValor;
+			return entRetraso;
+		}
+	}
+
+	private enum Color
+	{
+		GREEN(0), AMBER(16), RED(22);
+
+		private int entTiempo;
+
+		Color(int entTiempo)
+		{
+			this.entTiempo = entTiempo;
+		}
+		public int getColor()
+		{
+			return entTiempo;
 		}
 	}
 
 	public TrafficJunction()
 	{
-
+		entTiempo = 0;
 	}
 
 
@@ -41,7 +57,14 @@ public class TrafficJunction
 	 */
 	public void timesGoesBy()
 	{
-
+		if(entTiempo < 87)
+		{
+			entTiempo++;
+		}
+		else
+		{
+			entTiempo = 0;
+		}
 	}
 
 	/**
@@ -53,7 +76,10 @@ public class TrafficJunction
 	 * @param active true or false
 	 */
 	public void amberJunction(boolean active)
-	{ /* ... */ }
+	{
+		bolParpadeo = active;
+		entTiempo = 0;
+	}
 
 	/**
 	 * Returns a String with the state of the traffic lights .
@@ -71,5 +97,37 @@ public class TrafficJunction
 	 */
 	@Override
 	public String toString()
-	{ /* ... */ }
+	{
+		String stgResultado = new String();
+		int entAuxTemp;
+
+		for(int entS = 0; entS <= 3; entS++)
+		{
+			if(!bolParpadeo)
+			{
+				entAuxTemp = Semaforo.valueOf(arySEMAFOROS[entS]).getRetraso();
+				if(entTiempo >= entAuxTemp && entTiempo <= entAuxTemp+21)
+				{
+					entAuxTemp = entTiempo - entAuxTemp;
+					if(entAuxTemp < Color.AMBER.getColor())
+					{
+						stgResultado += "[" + arySEMAFOROS[entS] + ": GREEN " + (entAuxTemp - Color.GREEN.getColor()) + "]";
+					}
+					else if(entAuxTemp < Color.RED.getColor())
+					{
+						stgResultado += "[" + arySEMAFOROS[entS] + ": AMBER OFF " + (entAuxTemp - Color.AMBER.getColor()) + "]";
+					}
+				}
+				else
+				{
+					stgResultado += "[" + arySEMAFOROS[entS] + ": RED]";
+				}
+			}
+			else
+			{
+				stgResultado += "[" + arySEMAFOROS[entS] + ": AMBER ON]";
+			}
+		}
+		return(stgResultado);
+	}
 }

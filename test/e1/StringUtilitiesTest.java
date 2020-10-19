@@ -1,6 +1,5 @@
 package e1;
 
-import e1.StringUtilities;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

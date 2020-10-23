@@ -1,4 +1,5 @@
 package e1;
+
 import java.util.Random;
 
 public class StringUtilities {
@@ -16,37 +17,59 @@ public class StringUtilities {
      * @param c Mix of the two other Strings
      * @return true if the c is valid , false otherwise. */
 
+
+
+
+    /*String text = "foo";
+    char charAtZero = text.charAt(0);
+    System.out.println(charAtZero); // Prints f*/
+
+
+
     public static boolean isValidMix (String a , String b , String c ) {
         boolean correcto=false;
         int na=0;
         int nb=0;
         int nc=0;
-        char[] letraA = a.toCharArray();
-        char[] letraB = b.toCharArray();
-        char[] letraC = c.toCharArray();
-        if(c.length()==a.length()+b.length()) {
-            System.out.println("Tamaño correcto");
-            correcto =true;
-            while (correcto) {
-                if (nb!=b.length()&&letraC[nc] == letraB[nb]) {
-                    System.out.println("Letra "+letraC[nc]+" es igual a "+ letraB[nb]+" en B");
-                    nb++;
-                    if(nc==c.length()-1) return correcto;
-                    else nc++;
-                } else if (na!=a.length()&&letraC[nc] == letraA[na]) {
-                    System.out.println("Letra "+letraC[nc]+" es igual a "+ letraA[na]+" en A");
-                    na++;
-                    if(nc==c.length()-1) return correcto;
-                    else nc++;
-                } else {
-                    System.out.println("Letras o orden incorrecto");
-                    correcto = false;
+        char charA;
+        char charB;
+        char charC;
+
+        if(!a.isEmpty() && !b.isEmpty() && !c.isEmpty() && a != null && b != null && c != null) {
+            charA = a.charAt(na);
+            charB = b.charAt(nb);
+            charC = c.charAt(nc);
+
+            if(c.length()==a.length()+b.length()) {
+                System.out.println("Tamaño correcto");
+                correcto =true;
+                while (correcto) {
+                    if (nb!=b.length()&&charC == charB) {
+                        System.out.println("Letra "+charC+" es igual a "+ charB+" en B");
+                        nb++;
+                        if(nb!=b.length())charB = b.charAt(nb);
+                        if(nc==c.length()-1) return correcto;
+                        else nc++;charC = c.charAt(nc);
+                    } else if (na!=a.length()&&charC == charA) {
+                        System.out.println("Letra "+charC+" es igual a "+ charA+" en A");
+                        na++;
+                        if(na!=a.length())charA = a.charAt(na);
+                        if(nc==c.length()-1) return correcto;
+                        else nc++;charC = c.charAt(nc);
+                    } else {
+                        System.out.println("Letras o orden incorrecto");
+                        System.out.println(charC);
+                        correcto = false;
+                    }
                 }
+                return correcto;
             }
-            return correcto;
+            else{
+                System.out.println("Tamaño incorrecto o nulo");
+                return correcto;
+            }
         }
         else{
-            System.out.println("Tamaño incorrecto");
             return correcto;
         }
     }
@@ -57,9 +80,9 @@ public class StringUtilities {
      * @return A String that is a random valid mix of the other two. */
 
     public static String generateRandomValidMix (String a , String b) {
-        char[] letraA = a.toCharArray();
-        char[] letraB = b.toCharArray();
         int nc =a.length()+b.length(),v=0,n,na=0,nb=0;
+        char charA = a.charAt(na);
+        char charB = b.charAt(nb);
         StringBuilder c = new StringBuilder();
         while(v!=nc){
                 n=Aleatorio(2);
@@ -68,32 +91,18 @@ public class StringUtilities {
                     if(nb==b.length())n=0;
                 }
                 if(n==0&&na!=a.length()){
-                    c.append(letraA[na]);
+                    charA = a.charAt(na);
+                    c.append(charA);
                     na++;
                     v++;
                 }
                 else if(n==1&&nb!=b.length()){
-                    c.append(letraB[nb]);
+                    charB = b.charAt(nb);
+                    c.append(charB);
                     nb++;
                     v++;
                 }
         }
         return c.toString();
     }
-/*
-    public  static  void  main (String[]args){
-
-        String a = "Bye";
-        String b = "World";
-        String c;
-
-        c=generateRandomValidMix(a,b);
-        System.out.println(c);
-
-        if(isValidMix(a,b,c)) {
-            System.out.println("Todo bien");
-        }
-        else System.out.println("Mal");
-    }*/
-
 }

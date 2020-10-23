@@ -5,20 +5,10 @@ public class Clock {
     public enum Period {AM, PM};
     private String s;
 
-
+    
     private int hours; // en 24h
     private int minutes;
     private int seconds;
-
-    public static void main(String[] args) {
-        Clock c1 = new Clock(17, 30, 30);
-        Clock c2 = new Clock( 5, 30, 30, Clock.Period.PM);
-        Clock c3 = new Clock( 5 ,30, 30, Clock.Period.AM);
-        System.out.println(c1.printHour24());
-        System.out.println(c2.printHour24());
-        System.out.println(c3.printHour24());
-    }
-
 
 
     /**
@@ -150,7 +140,8 @@ public class Clock {
      * before noon (AM) or after noon (PM ).
      */
     public Period getPeriod () {
-        if(this.hours>12) return Period.PM;
+        if(this.hours==12) return Period.PM;
+        else if(this.hours>12) return Period.PM;
         else return Period.AM;
     }
     /**

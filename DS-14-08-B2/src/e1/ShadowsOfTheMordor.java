@@ -2,37 +2,42 @@ package e1;
 
 import java.util.Random;
 
-public class ShadowsOfTheMordor {
-    Heroe Heroe1 = new Heroe();
-    Heroe Heroe2 = new Heroe();
-    Heroe Heroe3 = new Heroe();
 
-    Bestia Bestia1 = new Bestia();
-    Bestia Bestia2 = new Bestia();
+public class ShadowsOfTheMordor {
+    public static void main(String[]args){
+        Heroe gand = new Heroe("Gand", Heroe.Raza.Humano, 100, 10);
+        Bestia uruk = new Bestia("Uruk", Bestia.Raza.Orco, 100, 10);
+        System.out.println(gand.nombre + " " + gand.raza + " " + gand.vida + " " + gand.armadura);
+        System.out.println(uruk.nombre + " " + uruk.raza + " " + uruk.vida + " " + uruk.armadura);
+    }
 }
 
 class Heroe {
 
     public enum Raza {Humano, Elfo, Enano};
 
-    Raza raza;
+    Raza raza = Raza.Humano;
 
     String nombre = "Heroe";
+
+    int vida=100;
+
+    int armadura=20;
+
+    void Armaduraes(int nuevaA){
+        this.armadura = nuevaA;
+    }
+
+    void Vidaes(int nuevaV){
+        this.vida = nuevaV;
+    }
 
     void nombrees(String nuevoN){
         this.nombre = nuevoN;
     }
 
-    void esHumano(){
-        this.raza = Raza.Humano;
-    }
-
-    void esElfo(){
-        this.raza = Raza.Elfo;
-    }
-
-    void esEnano(){
-        this.raza = Raza.Enano;
+    void Razaes(Raza nuevaR){
+        this.raza = nuevaR;
     }
 
     int DadosHeroe(){
@@ -51,26 +56,42 @@ class Heroe {
         return Math.max(Dado1, Dado2);
     }
 
+    Heroe(String nombre, Raza raza, int vida, int armadura){
+
+        this.nombrees(nombre);
+        this.Razaes(raza);
+        this.Vidaes(vida);
+        this.Armaduraes(armadura);
+
+    }
 }
 
 class Bestia {
 
     public enum Raza {Orco, Trasgo};
 
-    Raza raza;
+    Raza raza = Raza.Orco;
 
     String nombre = "Bestia";
+
+    int vida=100;
+
+    int armadura=20;
+
+    void Armaduraes(int nuevaA){
+        this.armadura = nuevaA;
+    }
+
+    void Vidaes(int nuevaV){
+        this.vida = nuevaV;
+    }
 
     void nombrees(String nuevoN){
         this.nombre = nuevoN;
     }
 
-    void esOrco(){
-        this.raza = Raza.Orco;
-    }
-
-    void esTrasgo(){
-        this.raza = Raza.Trasgo;
+    void Razaes(Raza nuevaR){
+        this.raza = nuevaR;
     }
 
     int DadosBestias(){
@@ -83,4 +104,12 @@ class Bestia {
         return d1.nextInt(91);
     }
 
+    Bestia(String nombre, Raza raza, int vida, int armadura){
+
+        this.nombrees(nombre);
+        this.Razaes(raza);
+        this.Vidaes(vida);
+        this.Armaduraes(armadura);
+
+    }
 }

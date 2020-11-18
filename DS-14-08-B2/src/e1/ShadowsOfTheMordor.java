@@ -54,12 +54,12 @@ public class ShadowsOfTheMordor
 
 
 	public static void main(String[]args)
-	{
+	{/*
 		ShadowsOfTheMordor test = new ShadowsOfTheMordor(true);
 		test.nuevoPersonaje("Elfo", 10, 100, Razas.ElFO);
 		test.nuevoPersonaje("Orco", 20, 100, Razas.ORCO);
 		test.batalla();
-		System.out.println(heroes.get(0).getHp());
+		System.out.println(heroes.get(0).getHp());*/
 	}
 }
 

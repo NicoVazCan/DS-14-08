@@ -1,115 +1,184 @@
 package e1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+public class ShadowsOfTheMordor
+{
+	private static List<Personaje> heroes;
+	private static List<Personaje> bestias;
+	static Random dados;
 
-public class ShadowsOfTheMordor {
-    public static void main(String[]args){
-        Heroe gand = new Heroe("Gand", Heroe.Raza.Humano, 100, 10);
-        Bestia uruk = new Bestia("Uruk", Bestia.Raza.Orco, 100, 10);
-        System.out.println(gand.nombre + " " + gand.raza + " " + gand.vida + " " + gand.armadura);
-        System.out.println(uruk.nombre + " " + uruk.raza + " " + uruk.vida + " " + uruk.armadura);
-    }
+	ShadowsOfTheMordor(boolean trucar)
+	{
+		heroes = new ArrayList<>();
+		bestias = new ArrayList<>();
+		dados = trucar? new Random(2020) : new Random();
+	}
+
+	public void nuevoPersonaje(String name, int hp, int dp, Razas raza)
+	{
+		if(raza.esHeroe())
+		{
+			heroes.add(raza.crear(name, hp, dp));
+		}
+		else
+		{
+			bestias.add(raza.crear(name, hp, dp));
+		}
+	}
+
+	public void batalla()
+	{
+		while(!heroes.isEmpty() && !bestias.isEmpty())
+		{
+			atacanA(heroes, bestias);
+			atacanA(bestias, heroes);
+		}
+	}
+
+	private static void atacanA(List<? extends Personaje> atacan, List<? extends Personaje> reciven)
+	{
+		int partici = Math.max(atacan.size(), reciven.size());
+
+		for(int k = 0; k < partici; k ++)
+		{
+			Personaje ataca = atacan.get(k);
+			Personaje reciv = reciven.get(k);
+
+			reciv.setHp(ataca.pelearCon(reciv));
+			if(!reciv.estaVivo()) {reciven.remove(reciv);}
+		}
+	}
+
+
+	public static void main(String[]args)
+	{
+		ShadowsOfTheMordor test = new ShadowsOfTheMordor(true);
+		test.nuevoPersonaje("Elfo", 10, 100, Razas.ElFO);
+		test.nuevoPersonaje("Orco", 20, 100, Razas.ORCO);
+		test.batalla();
+		System.out.println(heroes.get(0).getHp());
+	}
 }
 
-class Heroe {
+class Personaje
+{
+	private String name;
+	int dp, hp, maxDaño;
 
-    public enum Raza {Humano, Elfo, Enano};
+	Personaje(String name, int hp, int dp)
+	{
+		this.name = name;
+		this.hp = hp;
+		this.dp = dp;
+	}
 
-    Raza raza = Raza.Humano;
+	public String getName()
+	{
+		return name;
+	}
 
-    String nombre = "Heroe";
+	public int getHp()
+	{
+		return hp;
+	}
 
-    int vida=100;
+	public void setHp(int hp)
+	{
+		this.hp = hp;
+	}
 
-    int armadura=20;
+	public boolean estaVivo()
+	{
+		return hp > 0;
+	}
 
-    void Armaduraes(int nuevaA){
-        this.armadura = nuevaA;
-    }
-
-    void Vidaes(int nuevaV){
-        this.vida = nuevaV;
-    }
-
-    void nombrees(String nuevoN){
-        this.nombre = nuevoN;
-    }
-
-    void Razaes(Raza nuevaR){
-        this.raza = nuevaR;
-    }
-
-    int DadosHeroe(){
-        Random d1 = new Random();
-        Random d2 = new Random();
-        int Dado1 = d1.nextInt(101);
-        int Dado2 = d2.nextInt(101);
-        return Math.max(Dado1, Dado2);
-    }
-
-    int DadosTrucadosHeroe(){
-        Random d1 = new Random(2020);
-        Random d2 = new Random(202);
-        int Dado1 = d1.nextInt(101);
-        int Dado2 = d2.nextInt(101);
-        return Math.max(Dado1, Dado2);
-    }
-
-    Heroe(String nombre, Raza raza, int vida, int armadura){
-
-        this.nombrees(nombre);
-        this.Razaes(raza);
-        this.Vidaes(vida);
-        this.Armaduraes(armadura);
-
-    }
+	public int pelearCon(Personaje contrinc)
+	{
+		Random dado = ShadowsOfTheMordor.dados;
+		return Math.max(dado.nextInt(maxDaño) + dado.nextInt(maxDaño) - contrinc.dp, 0);
+	}
 }
 
-class Bestia {
+class Heroe extends Personaje
+{
+	Heroe(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+		maxDaño = 101;
+	}
+}
 
-    public enum Raza {Orco, Trasgo};
+class Bestia extends Personaje
+{
+	Bestia(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+		maxDaño = 91;
+	}
+}
 
-    Raza raza = Raza.Orco;
+class Elfo extends Heroe
+{
+	Elfo(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+	}
 
-    String nombre = "Bestia";
+	@Override
+	public int pelearCon(Personaje contrinc)
+	{
+		int ext = contrinc instanceof Orco? 10 : 0;
 
-    int vida=100;
+		return (super.pelearCon(contrinc) + ext);
+	}
+}
 
-    int armadura=20;
+class Hobbit extends Heroe
+{
+	Hobbit(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+	}
 
-    void Armaduraes(int nuevaA){
-        this.armadura = nuevaA;
-    }
+	@Override
+	public int pelearCon(Personaje contrinc)
+	{
+		int ext = contrinc instanceof Trasgo? 5 : 0;
 
-    void Vidaes(int nuevaV){
-        this.vida = nuevaV;
-    }
+		return Math.max(super.pelearCon(contrinc) - ext, 0);
+	}
+}
 
-    void nombrees(String nuevoN){
-        this.nombre = nuevoN;
-    }
+class Humano extends Heroe
+{
+	Humano(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+	}
+}
 
-    void Razaes(Raza nuevaR){
-        this.raza = nuevaR;
-    }
+class Orco extends Bestia
+{
+	Orco(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+	}
 
-    int DadosBestias(){
-        Random d1 = new Random();
-        return d1.nextInt(91);
-    }
+	public int pelearCon(Personaje contrinc)
+	{
+		int ext = (int)(contrinc.dp * 0.1);
 
-    int DadosTrucadosBestias(){
-        Random d1 = new Random(4480);
-        return d1.nextInt(91);
-    }
+		return (super.pelearCon(contrinc) + ext);
+	}
+}
 
-    Bestia(String nombre, Raza raza, int vida, int armadura){
-
-        this.nombrees(nombre);
-        this.Razaes(raza);
-        this.Vidaes(vida);
-        this.Armaduraes(armadura);
-
-    }
+class Trasgo extends Bestia
+{
+	Trasgo(String name, int hp, int dp)
+	{
+		super(name, hp, dp);
+	}
 }

@@ -6,7 +6,9 @@ import e1.ShadowsOfTheMordor;
 public class Matrix {
     public static void main(String[]args)
     {
-        Matriz test = new Matriz(3,3);
+        int filas=3,columnas=4;
+        int filabuscar=0,columnabuscar=0;
+        Matriz test = new Matriz(3,4);
         System.out.println(test.tremendoString());
         test.setCelda(22,2,2);
         System.out.println(test.tremendoString());
@@ -19,15 +21,18 @@ public class Matrix {
         System.out.println("Celda 2,2 = "+test.getCelda(2,2));
         System.out.println("Columnas = "+test.getColumnas());
         System.out.println("Filas = "+test.getFilas());
-        System.out.println("Colum1.1 = "+test.getColum(0)[0]);
-        System.out.println("Colum1.2 = "+test.getColum(0)[1]);
-        System.out.println("Colum1.3 = "+test.getColum(0)[2]);
-        System.out.println("Fila1.1 = "+test.getFila(0)[0]);
-        System.out.println("Fila1.2 = "+test.getFila(0)[1]);
-        System.out.println("Fila1.3 = "+test.getFila(0)[2]);
-        System.out.println(test.getMatriz()[0][0]+" "+test.getMatriz()[0][1]+" "+test.getMatriz()[0][2]);
-        System.out.println(test.getMatriz()[1][0]+" "+test.getMatriz()[1][1]+" "+test.getMatriz()[1][2]);
-        System.out.println(test.getMatriz()[2][0]+" "+test.getMatriz()[2][1]+" "+test.getMatriz()[2][2]);
+        System.out.println("Columna"+(columnabuscar+1)+":");
+        for (int c = 0; c< filas; c++)
+            System.out.println(test.getColum(columnabuscar)[c]);
+        System.out.println("Fila"+(filabuscar+1)+":");
+        for (int f = 0; f< columnas; f++)
+            System.out.println(test.getFila(filabuscar)[f]);
+        System.out.println("Matriz1:");
+        for (int i = 0; i < filas; i++){
+            System.out.println("Fila"+(i+1)+":");
+            for (int j = 0; j < columnas; j++)
+                System.out.println(test.getMatriz()[i][j]);
+        }
     }
 }
 class Matriz{
@@ -35,21 +40,21 @@ class Matriz{
     private int [][] data;
     private int filas, columnas;
 
-    public Matriz(int col, int fil) {
+    public Matriz(int fil, int col) {
         this.columnas=col;
         this.filas=fil;
-        this.data = new int[col][fil];
-        for (int i = 0; i < col; i++)
-            for (int j = 0; j < fil; j++)
+        this.data = new int[fil][col];
+        for (int i = 0; i < fil; i++)
+            for (int j = 0; j < col; j++)
                 this.data[i][j] = 0;
     }
     public Matriz(int[][] data) {
         int columnas = data.length;
         int filas = data[0].length;
         if(columnas!=filas)
-            this.data = new int[columnas][filas];
-            for (int i = 0; i < columnas; i++)
-                for (int j = 0; j < filas; j++)
+            this.data = new int[filas][columnas];
+            for (int i = 0; i < filas; i++)
+                for (int j = 0; j < columnas; j++)
                     this.data[i][j] = data[i][j];
         throw new IndexOutOfBoundsException();
     }
@@ -61,20 +66,20 @@ class Matriz{
     }
     public boolean setCelda(int o,int fil,int col) {
         if ((col >= 0 && col < columnas)&&(fil >= 0 && fil < filas)){
-            data[col][fil]=o;
+            data[fil][col]=o;
             return true;
         }
         throw new IndexOutOfBoundsException();
     }
     public int getCelda(int fil,int col) {
         if ((col >= 0 && col < columnas)&&(fil >= 0 && fil < filas))
-            return data[col][fil];
+            return data[fil][col];
         throw new IndexOutOfBoundsException();
     }
     public int[][] getMatriz() {
-        int [][] nueva = new int[this.columnas][this.filas];
-        for (int i = 0; i < this.columnas; i++)
-            for (int j = 0; j < this.filas; j++)
+        int [][] nueva = new int[this.filas][this.columnas];
+        for (int i = 0; i < this.filas; i++)
+            for (int j = 0; j < this.columnas; j++)
                 nueva[i][j] = this.data[i][j];
         return nueva;
     }

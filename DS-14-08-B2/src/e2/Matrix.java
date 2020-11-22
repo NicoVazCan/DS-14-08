@@ -1,14 +1,13 @@
 package e2;
 
-import e1.Razas;
-import e1.ShadowsOfTheMordor;
+import java.util.Iterator;
 
 public class Matrix {
     public static void main(String[]args)
     {
-        int filas=3,columnas=4;
+        int filas=4,columnas=4;
         int filabuscar=0,columnabuscar=0;
-        Matriz test = new Matriz(3,4);
+        Matriz test = new Matriz(filas,columnas);
         System.out.println(test.tremendoString());
         test.setCelda(22,2,2);
         System.out.println(test.tremendoString());
@@ -21,23 +20,38 @@ public class Matrix {
         System.out.println("Celda 2,2 = "+test.getCelda(2,2));
         System.out.println("Columnas = "+test.getColumnas());
         System.out.println("Filas = "+test.getFilas());
+        System.out.println("");
+
         System.out.println("Columna"+(columnabuscar+1)+":");
         for (int c = 0; c< filas; c++)
             System.out.println(test.getColum(columnabuscar)[c]);
+        System.out.println("");
+
         System.out.println("Fila"+(filabuscar+1)+":");
         for (int f = 0; f< columnas; f++)
-            System.out.println(test.getFila(filabuscar)[f]);
+            System.out.print(test.getFila(filabuscar)[f]);
+        System.out.println("");
+        System.out.println("");
+
         System.out.println("Matriz1:");
         for (int i = 0; i < filas; i++){
             System.out.println("Fila"+(i+1)+":");
             for (int j = 0; j < columnas; j++)
                 System.out.println(test.getMatriz()[i][j]);
         }
+
+        System.out.println("Papaya");
+        Iterator it = test.iterator();
+        while (it.hasNext()) {
+            int celda = (int) it.next();
+            System.out.print(celda+" ");
+        }
+        System.out.println("");
     }
 }
-class Matriz{
+class Matriz implements Iterable{
 
-    private int [][] data;
+    public static int [][] data;
     private int filas, columnas;
 
     public Matriz(int fil, int col) {
@@ -112,5 +126,18 @@ class Matriz{
             c.append("]\n");
         }
         return c.toString();
+    }
+    public Iterator rowColumnIterator() {
+        return new RowColumnIterator();
+    }
+
+    public Iterator columnRowIterator() {
+        return new ColumnRowIterator();
+    }
+    @Override
+    public Iterator iterator() {
+        boolean bool = true;
+        if (bool) return rowColumnIterator();
+        else return columnRowIterator();
     }
 }

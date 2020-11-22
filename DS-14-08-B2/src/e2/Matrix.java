@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class Matrix {
     public static void main(String[]args)
     {
-        int filas=4,columnas=4;
+        int filas=3,columnas=3;
         int filabuscar=0,columnabuscar=0;
         Matriz test = new Matriz(filas,columnas);
         System.out.println(test.tremendoString());

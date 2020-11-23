@@ -29,30 +29,41 @@ public class ShadowsOfTheMordor
 
 	public String batalla()
 	{
-		String mensj = new String();
+		StringBuilder c = new StringBuilder();
+		int Turno=1;
 		while(!heroes.isEmpty() && !bestias.isEmpty())
 		{
 			int partici = Math.min(heroes.size(), bestias.size());
-
+			c.append("Turno"+Turno+":\n");
+			System.out.print("Turno"+Turno+":\n");
 			for(int k = 0; k < partici; k ++)
 			{
 				Personaje heroe = heroes.get(k);
 				Personaje bestia = bestias.get(k);
-
+				c.append("  Fight between "+heroe.getName()+" (Energy="+heroe.hp+") and "+bestia.getName()+" (Energy"+bestia.hp+")\n");
+				System.out.print("  Fight between "+heroe.getName()+" (Energy="+heroe.hp+") and "+bestia.getName()+" (Energy"+bestia.hp+")\n");
 				heroe.pelearCon(bestia);
 				bestia.pelearCon(heroe);
-
 				if(heroe.estaMuerto())
 				{
+					c.append("  "+heroe.toString()+" "+heroe.getName()+" dies!\n");
+					System.out.print("  "+heroe.toString()+" "+heroe.getName()+" dies!\n");
 					heroes.remove(heroe);
 				}
 				if(bestia.estaMuerto())
 				{
+					c.append("  "+heroe.toString()+" "+heroe.getName()+" dies!\n");
+					System.out.print("  "+bestia.toString()+" "+bestia.getName()+" dies!\n");
 					bestias.remove(bestia);
 				}
 				partici = Math.min(heroes.size(), bestias.size());
 			}
+			Turno++;
 		}
+		if(heroes.isEmpty() && bestias.isEmpty()){c.append("ITS A TIE");System.out.print("ITS A TIE");}
+		if(bestias.isEmpty()){c.append("HEROES WIN!!");System.out.print("HEROES WIN!!");}
+		if(heroes.isEmpty()){c.append("BESTIAS WIN!!");System.out.print("BESTIAS WIN!!");}
+		String mensj= c.toString();;
 		return mensj;
 	}
 

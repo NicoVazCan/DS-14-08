@@ -1,5 +1,5 @@
 package e2;
-
+//comentario inutil
 import java.util.Iterator;
 
 public class RowColumnIterator implements Iterator {

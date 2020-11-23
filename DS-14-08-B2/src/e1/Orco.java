@@ -1,10 +1,25 @@
 package e1;
 
+import java.util.Random;
+
 class Orco extends Bestia
 {
 	Orco(String name, int hp, int dp)
 	{
-		super(name, hp, dp);
+		this.name = name;
+		this.hp = hp;
+		this.dp = dp;
+		this.maxDano = MAXBEAST;
+		this.dado = new Random();
+	}
+
+	Orco(String name, int hp, int dp, int seed)
+	{
+		this.name = name;
+		this.hp = hp;
+		this.dp = dp;
+		this.maxDano = MAXBEAST;
+		this.dado = new Random(seed);
 	}
 
 	public void pelearCon(Personaje contrinc)
@@ -12,6 +27,6 @@ class Orco extends Bestia
 		int ext = (int)(contrinc.dp * 0.1);
 		int dano = contrinc.dp - (tirarDado() + ext);
 
-		contrinc.hp = Math.max(dano, 0);
+		if(dano < 0) { contrinc.hp = Math.max(contrinc.hp + dano, 0); }
 	}
 }

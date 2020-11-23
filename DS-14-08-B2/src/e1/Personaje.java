@@ -4,17 +4,11 @@ import java.util.Random;
 
 abstract class Personaje
 {
-	private final String name;
-	protected int hp;
-	protected final int dp, maxDano;
+	protected static final int MAXHERO = 101, MAXBEAST = 91;
 
-	Personaje(String name, int hp, int dp, int maxDano)
-	{
-		this.name = name;
-		this.hp = hp;
-		this.dp = dp;
-		this.maxDano = maxDano;
-	}
+	protected String name;
+	protected int hp, dp, maxDano;
+	protected Random dado;
 
 	public String getName()
 	{
@@ -31,13 +25,19 @@ abstract class Personaje
 		return hp == 0;
 	}
 
-	public int tirarDado()
+	public String getRaza()
 	{
-		Random dado = ShadowsOfTheMordor.dados;
+		String raza = toString();
+		int beg = (raza.indexOf('.') + 1),
+				end = raza.lastIndexOf('@');
 
+		return raza.substring(beg, end);
+	}
+
+	protected int tirarDado()
+	{
 		return dado.nextInt(maxDano);
 	}
 
 	abstract void pelearCon(Personaje contrinc);
-
 }

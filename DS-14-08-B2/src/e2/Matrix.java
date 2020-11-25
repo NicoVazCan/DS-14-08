@@ -5,18 +5,18 @@ import java.util.Iterator;
 public class Matrix {
     public static void main(String[]args)
     {
-        int filas=3,columnas=3;
+        int filas=3,columnas=4;
         int filabuscar=0,columnabuscar=0;
         Matriz test = new Matriz(filas,columnas);
-        System.out.println(test.tremendoString());
+        System.out.println(test.StringMatriz());
         test.setCelda(22,2,2);
-        System.out.println(test.tremendoString());
+        System.out.println(test.StringMatriz());
         test.setCelda(1,0,0);
         test.setCelda(2,0,1);
         test.setCelda(3,0,2);
         test.setCelda(1,1,0);
         test.setCelda(1,2,0);
-        System.out.println(test.tremendoString());
+        System.out.println(test.StringMatriz());
         System.out.println("Celda 2,2 = "+test.getCelda(2,2));
         System.out.println("Columnas = "+test.getColumnas());
         System.out.println("Filas = "+test.getFilas());
@@ -38,6 +38,15 @@ public class Matrix {
             System.out.println("Fila"+(i+1)+":");
             for (int j = 0; j < columnas; j++)
                 System.out.println(test.getMatriz()[i][j]);
+        }
+
+        Matriz test2 = new Matriz(test.getMatriz());
+        System.out.println(test2.StringMatriz());
+        System.out.println("Matriz2:");
+        for (int i = 0; i < filas; i++){
+            System.out.println("Fila"+(i+1)+":");
+            for (int j = 0; j < columnas; j++)
+                System.out.println(test2.getMatriz()[i][j]);
         }
 
         System.out.println("Papaya");
@@ -63,14 +72,17 @@ class Matriz implements Iterable{
                 this.data[i][j] = 0;
     }
     public Matriz(int[][] data) {
-        int columnas = data.length;
-        int filas = data[0].length;
-        if(columnas!=filas)
+        int filas = data.length;
+        int columnas = data[0].length;
+        if(columnas!=filas) {
+            this.columnas=columnas;
+            this.filas=filas;
             this.data = new int[filas][columnas];
             for (int i = 0; i < filas; i++)
                 for (int j = 0; j < columnas; j++)
                     this.data[i][j] = data[i][j];
-        throw new IndexOutOfBoundsException();
+        }
+        else throw new IndexOutOfBoundsException();
     }
     public int getFilas() {
         return this.filas;
@@ -115,7 +127,7 @@ class Matriz implements Iterable{
         }
         throw new IndexOutOfBoundsException();
     }
-    public String tremendoString(){
+    public String StringMatriz(){
         StringBuilder c = new StringBuilder();
         for (int i = 0; i < this.filas; i++){
             c.append("[");

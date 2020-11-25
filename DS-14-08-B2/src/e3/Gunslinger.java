@@ -11,12 +11,12 @@ public class Gunslinger
 
 	public int getLoads()
 	{
-
+        return this.loads;
 	}
 
 	public void rivalAction(GunslingerAction action)
 	{
-
+        return action=this.last;
 	}
 
 	public List<GunslingerAction> getRivalActions()
@@ -26,7 +26,7 @@ public class Gunslinger
 
 	public int getRivalLoads()
 	{
-
+        return this.loads;
 	}
 
 	public void setBehavior(Behavior behavior)

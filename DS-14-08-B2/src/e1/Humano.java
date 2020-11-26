@@ -18,7 +18,7 @@ class Humano extends Heroe
 		this.name = name;
 		this.hp = hp;
 		this.dp = dp;
-		this.maxDano = MAXBEAST;
+		this.maxDano = MAXHERO;
 		this.dado = new Random(seed);
 	}
 }

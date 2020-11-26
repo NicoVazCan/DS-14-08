@@ -18,16 +18,23 @@ class Hobbit extends Heroe
 		this.name = name;
 		this.hp = hp;
 		this.dp = dp;
-		this.maxDano = MAXBEAST;
+		this.maxDano = MAXHERO;
 		this.dado = new Random(seed);
 	}
 
 	@Override
 	public void pelearCon(Personaje contrinc)
 	{
-		int dec = contrinc instanceof Trasgo? 5 : 0;
-		int dano = contrinc.dp - (Math.max(tirarDado(), tirarDado()) - dec);
+		int dec = contrinc instanceof Trasgo ? 5: 0;
+		int dano = Math.min(contrinc.dp - (Math.max(tirarDado(), tirarDado()) - dec), 0);
 
-		if(dano < 0) { contrinc.hp = Math.max(contrinc.hp + dano, 0); }
+		if(contrinc instanceof Heroe)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			contrinc.hp = Math.max(contrinc.hp + dano, 0);
+		}
 	}
 }

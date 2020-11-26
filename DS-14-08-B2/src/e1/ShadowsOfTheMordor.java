@@ -66,24 +66,16 @@ public class ShadowsOfTheMordor
 				c.append("Turn "+turno+":\n");
 			}
 		}
-		if(heroes.isEmpty() && bestias.isEmpty()){c.append("ITS A TIE");}
-		if(bestias.isEmpty()){c.append("HEROES WIN!!");}
-		if(heroes.isEmpty()){c.append("BEASTS WIN!!");}
+		if(heroes.isEmpty() && bestias.isEmpty())
+		{
+			c.append("ITS A TIE");
+		}
+		else
+		{
+			if(bestias.isEmpty()){c.append("HEROES WIN!!");}
+			if(heroes.isEmpty()){c.append("BEASTS WIN!!");}
+		}
 
 		return c.toString();
-	}
-
-	public static void main(String[]args)
-	{
-		ShadowsOfTheMordor test = new ShadowsOfTheMordor();
-		test.anadirHeroe(new Elfo("El1", 100, 50, 10));
-		test.anadirHeroe(new Humano("Hu1", 80, 60, 10));
-		test.anadirHeroe(new Humano("Hu2", 90, 55,10));
-		test.anadirHeroe(new Hobbit("Ho1", 200, 40, 10));
-		test.anadirBestia(new Orco("Or1", 150, 30, 10));
-		test.anadirBestia(new Orco("Or2", 140, 40, 10));
-		test.anadirBestia(new Orco("Or3", 160, 20, 10));
-		test.anadirBestia(new Trasgo("Tr1", 110, 70, 10));
-		System.out.print(test.batalla());
 	}
 }

@@ -18,7 +18,7 @@ class Elfo extends Heroe
 		this.name = name;
 		this.hp = hp;
 		this.dp = dp;
-		this.maxDano = MAXBEAST;
+		this.maxDano = MAXHERO;
 		this.dado = new Random(seed);
 	}
 
@@ -26,8 +26,15 @@ class Elfo extends Heroe
 	public void pelearCon(Personaje contrinc)
 	{
 		int ext = contrinc instanceof Orco? 10 : 0;
-		int dano = contrinc.dp - (Math.max(tirarDado(), tirarDado()) + ext);
+		int dano = Math.min(contrinc.dp - (Math.max(tirarDado(), tirarDado()) + ext), 0);
 
-		if(dano < 0) { contrinc.hp = Math.max(contrinc.hp + dano, 0); }
+		if(contrinc instanceof Heroe)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			contrinc.hp = Math.max(contrinc.hp + dano, 0);
+		}
 	}
 }

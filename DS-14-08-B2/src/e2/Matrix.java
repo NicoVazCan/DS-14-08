@@ -36,7 +36,7 @@ public class Matrix implements Iterable{
             this.filas=filas;
             this.data = new int[filas][columnas];
             for (int i = 0; i < filas; i++){
-                System.arraycopy(data[i], 0, this.data[i], 0, columnas);
+                this.data[i]=Arrays.copyOf(data[i], columnas);
             }
         }
         else throw new IndexOutOfBoundsException();
@@ -64,7 +64,7 @@ public class Matrix implements Iterable{
     public int[][] getMatriz() {
         int [][] nueva = new int[this.filas][this.columnas];
         for (int i = 0; i < this.filas; i++)
-            if (this.columnas >= 0) System.arraycopy(data[i], 0, nueva[i], 0, this.columnas);
+            if (this.columnas >= 0) nueva[i]=Arrays.copyOf(data[i], this.columnas);
         return nueva;
     }
     public int[] getFila(int fil) {
@@ -87,12 +87,8 @@ public class Matrix implements Iterable{
     public String StringMatriz(){
         StringBuilder c = new StringBuilder();
         for (int i = 0; i < this.filas; i++){
-            c.append("[");
-            for (int j = 0; j < this.columnas; j++) {
-                c.append(data[i][j]);
-                if(j<this.columnas-1) c.append(" ,");
-            }
-            c.append("]\n");
+            c.append(Arrays.toString(data[i]));
+            c.append("\n");
         }
         return c.toString();
     }

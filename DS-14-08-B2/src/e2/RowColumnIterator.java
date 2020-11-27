@@ -3,25 +3,32 @@ package e2;
 import java.util.Iterator;
 
 public class RowColumnIterator implements Iterator {
-    public static int PosCol;
-    public static int PosFil;
+    public int PosCol;
+    public int PosFil;
+    public int tamañoFil;
+    public int tamañoCol;
+    public int [][] Datos;
 
-    public RowColumnIterator() {
+
+    public RowColumnIterator(int[][] data) {
         PosFil = 0;
         PosCol = 0;
+        tamañoCol =data[0].length;
+        tamañoFil =data.length;
+        Datos = data;
     }
 
     @Override
     public boolean hasNext() {
-        return !((PosCol == 0) && (PosFil == Matriz.data.length));
+        return !((PosCol == 0) && (PosFil == tamañoFil));
     }
 
     @Override
     public Object next() {
         if (this.hasNext()) {
-            int celda = Matriz.data[PosFil][PosCol];
+            int celda = Datos[PosFil][PosCol];
 
-            if (PosCol != Matriz.data[0].length-1) // Si no es final de línea.
+            if (PosCol != tamañoCol-1) // Si no es final de línea.
                 PosCol++;
             else {
                 PosCol=0;

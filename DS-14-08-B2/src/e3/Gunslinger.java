@@ -5,43 +5,45 @@ import java.util.List;
 
 public class Gunslinger
 {
-    public int loads=0;
-    public Gunslinger rival;
-    public GunslingerAction last;
-    private List <GunslingerAction> acciones = new ArrayList<GunslingerAction>();
-    public Behavior algo;
+	public int loads = 0, rivalLoads = 0;
+	private List<GunslingerAction> rivalActs = new ArrayList<>();
+	private Behavior hace;
 
 	public GunslingerAction action()
 	{
-        if(getLoads()==0 && getRivalLoads()==0){
-            return GunslingerAction.RELOAD;
-        }
-        else return GunslingerAction.SHOOT;
+		return hace.action(this);
 	}
 
 	public int getLoads()
 	{
-        return this.loads;
+		return this.loads;
 	}
 
 	public void rivalAction(GunslingerAction action)
 	{
-
-        action=this.rival.last;
-	    acciones.add(action);
+		if(action.equals(GunslingerAction.SHOOT))
+		{
+			rivalLoads++;
+		}
+		else if(action.equals(GunslingerAction.MACHINE_GUN))
+		{
+			rivalLoads = 0;
+		}
+		rivalActs.add(action);
 	}
 
 	public List<GunslingerAction> getRivalActions()
 	{
-        return this.acciones;
+		return this.rivalActs;
 	}
 
 	public int getRivalLoads()
 	{
-        return this.rival.loads;
+		return this.rivalLoads;
 	}
+
 	public void setBehavior(Behavior behavior)
 	{
-        algo=behavior;
+		hace = behavior;
 	}
 }

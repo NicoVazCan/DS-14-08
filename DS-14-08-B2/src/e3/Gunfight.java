@@ -7,10 +7,10 @@ public class Gunfight
 	{
 		GunslingerAction g1Act = g1.action(), g2Act = g1.action();
 		String ganador = "";
-		int Round=1;
+		int round=1;
 		do
 		{
-			System.out.print("Round "+Round+"-------------------------\n");
+			System.out.print("Round "+round+"-------------------------\n");
 			g1.rivalAction(g2Act);
 			g2.rivalAction(g1Act);
 

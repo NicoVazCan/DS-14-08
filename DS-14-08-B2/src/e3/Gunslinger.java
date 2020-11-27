@@ -21,9 +21,13 @@ public class Gunslinger
 
 	public void rivalAction(GunslingerAction action)
 	{
-		if(action.equals(GunslingerAction.SHOOT))
+		if(action.equals(GunslingerAction.RELOAD))
 		{
 			rivalLoads++;
+		}
+		else if(action.equals(GunslingerAction.SHOOT))
+		{
+			rivalLoads--;
 		}
 		else if(action.equals(GunslingerAction.MACHINE_GUN))
 		{

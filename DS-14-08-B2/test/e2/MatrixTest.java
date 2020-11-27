@@ -18,7 +18,7 @@ class MatrixTest
         int filabuscar=0,columnabuscar=0;
 
         Matrix test1 = new Matrix(filas,columnas);
-        assertEquals(test1.StringMatriz(), "[0, 0, 0, 0]\n" +
+        assertEquals(test1.stringMatriz(), "[0, 0, 0, 0]\n" +
                                                  "[0, 0, 0, 0]\n" +
                                                  "[0, 0, 0, 0]\n");
 
@@ -27,7 +27,7 @@ class MatrixTest
         test1.setCelda(1,0,0);
         test1.setCelda(2,0,1);
         test1.setCelda(3,1,0);
-        assertEquals(test1.StringMatriz(), "[1, 2, 0, 0]\n" +
+        assertEquals(test1.stringMatriz(), "[1, 2, 0, 0]\n" +
                                                  "[3, 22, 0, 0]\n" +
                                                  "[0, 0, 0, 0]\n");
         assertEquals(test1.getColumnas(), columnas);
@@ -36,7 +36,7 @@ class MatrixTest
         assertEquals(Arrays.toString(test1.getFila(filabuscar)),"[1, 2, 0, 0]");
 
         Matrix test2 = new Matrix(test1.getMatriz());
-        assertEquals(test2.StringMatriz(), "[1, 2, 0, 0]\n" +
+        assertEquals(test2.stringMatriz(), "[1, 2, 0, 0]\n" +
                                                  "[3, 22, 0, 0]\n" +
                                                  "[0, 0, 0, 0]\n");
 
@@ -92,7 +92,7 @@ class MatrixTest
             Matrix test2 = new Matrix(test1.getMatriz());
             MatrixAddition ma = new MatrixAddition();
 
-            assertEquals(ma.sumar(test1,test2).StringMatriz(),"[2, 4, 0, 0]\n" +
+            assertEquals(ma.sumar(test1,test2).stringMatriz(),"[2, 4, 0, 0]\n" +
                                                                     "[6, 44, 0, 0]\n" +
                                                                     "[0, 0, 0, 0]\n");
             Matrix test3 = new Matrix(filas+1,columnas+1);

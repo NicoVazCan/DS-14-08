@@ -1,36 +1,27 @@
 package e3;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GunfightTest
 {
 
-	@BeforeEach
+	@Test
 	void setUp()
 	{
-	    /*Gunslinger test1 = new Gunslinger();
+	    Gunslinger test1 = new Gunslinger();
         Gunslinger test2 = new Gunslinger();
-        test1.RELOAD;
-        test2.RELOAD
-        test1.SHIELD
-        test2.SHOOT
-        test1.SHOOT
-        test2.SHIELD
-        test1.RELOAD
-        test2.RELOAD
-        test1.RELOAD
-        test2.RELOAD
-        test1.RELOAD
-        test2.RELOAD
-        test1.RELOAD
-        test2.RELOAD
-        test1.RELOAD
-        test2.RELOAD
-        test1.MACHINEGUN
-        test2.MACHINEGUN*/
+        assertEquals(test1.getLoads(),test2.getRivalLoads());
+		System.out.println(test2.getRivalActions());
+        test2.rivalAction(GunslingerAction.RELOAD);
+		test2.rivalAction(GunslingerAction.SHOOT);
+		assertEquals(test1.getLoads(),test2.getRivalLoads());
+		test2.rivalAction(GunslingerAction.RELOAD);
+		//assertEquals(test1.getLoads(),test2.getRivalLoads());
+		//assertEquals(test2.getRivalActions(),"[]");
+		System.out.println(test2.getRivalActions());
 	}
 
 	/*@AfterEach

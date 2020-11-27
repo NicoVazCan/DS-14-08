@@ -9,7 +9,6 @@ public class MatrixAddition
 		Matriz suma;
 		Iterator iterM1 = m1.iterator();
 		Iterator iterM2 = m2.iterator();
-		Iterator iterMS;
 		int fil1 = m1.getFilas(), fil2 = m2.getFilas(),
 		    col1 = m1.getColumnas(), col2 = m2.getColumnas(),
 				n1 ,n2;
@@ -17,15 +16,18 @@ public class MatrixAddition
 		if(fil1 == fil2 && col1 == col2)
 		{
 			suma = new Matriz(fil1, fil2);
-			iterMS = suma.iterator();
 
-			while(iterM1.hasNext())
+			for(int x = 0, y = 0; iterM1.hasNext(); x++)
 			{
 				n1 = (int) iterM1.next();
 				n2 = (int) iterM2.next();
-				Object aux = iterMS.next();
+				if(x == col1)
+				{
+					x = 0;
+					y++;
+				}
 
-				aux = (Object) (n1 + n2);
+				suma.setCelda((n1 + n2), x, y);
 			}
 			return suma;
 		}
@@ -35,7 +37,6 @@ public class MatrixAddition
 	public static void main(String[] args)
 	{
 		//int[][] a1 = {{1,2,3},{4,5,6}}, a2 = {{2,5,1},{4,2,7}};
-		int aux;
 		Matriz m1 = new Matriz(2,2), m2 = new Matriz(2,2), ms;
 		m1.setCelda(1,0,0);
 		m1.setCelda(2,1,0);
@@ -46,8 +47,6 @@ public class MatrixAddition
 		m2.setCelda(3,1,0);
 		m2.setCelda(4,0,1);
 		m2.setCelda(5,1,1);
-
-		aux = m1.getCelda(0,0);
 
 		ms = sumar(m1, m2);
 		System.out.println(ms.StringMatriz());

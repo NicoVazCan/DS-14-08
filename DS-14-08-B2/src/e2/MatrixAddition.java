@@ -9,9 +9,6 @@ public class MatrixAddition {
         }
         else throw new ArithmeticException();
     }
-    public void sumaFC(){
-        
-    }
 	public static Matrix sumar(Matrix m1, Matrix m2)
 	{
 		Matrix suma;
@@ -39,24 +36,6 @@ public class MatrixAddition {
 			}
 			return suma;
 		}
-		throw  new ArithmeticException();
-	}
-
-	public static void main(String[] args)
-	{
-		//int[][] a1 = {{1,2,3},{4,5,6}}, a2 = {{2,5,1},{4,2,7}};
-		Matrix m1 = new Matrix(2,2), m2 = new Matrix(2,2), ms;
-		m1.setCelda(1,0,0);
-		m1.setCelda(2,1,0);
-		m1.setCelda(3,0,1);
-		m1.setCelda(4,1,1);
-
-		m2.setCelda(5,0,0);
-		m2.setCelda(6,1,0);
-		m2.setCelda(7,0,1);
-		m2.setCelda(8,1,1);
-
-		ms = sumar(m1, m2);
-		System.out.println(ms.StringMatriz());
+		else throw  new ArithmeticException();
 	}
 }

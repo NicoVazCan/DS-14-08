@@ -70,7 +70,7 @@ public class Matrix implements Iterable{
     public int[] getFila(int fil) {
         if (fil >= 0 && fil < this.filas){
             int [] fila = new int[this.columnas];
-            if (this.columnas >= 0) System.arraycopy(data[fil], 0, fila, 0, this.columnas);
+            if (this.columnas >= 0) fila=Arrays.copyOf(data[fil], this.columnas);
             return fila;
         }
         throw new IndexOutOfBoundsException();
@@ -84,7 +84,7 @@ public class Matrix implements Iterable{
         }
         throw new IndexOutOfBoundsException();
     }
-    public String StringMatriz(){
+    public String stringMatriz(){
         StringBuilder c = new StringBuilder();
         for (int i = 0; i < this.filas; i++){
             c.append(Arrays.toString(data[i]));

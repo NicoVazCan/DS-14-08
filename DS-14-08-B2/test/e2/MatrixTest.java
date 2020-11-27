@@ -2,61 +2,101 @@ package e2;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class MatrixTest
 {
 
 	@Test
-	void setUp()
+	void CrearMatriz()
 	{
         int filas=3,columnas=4,dato=22;
         int filabuscar=0,columnabuscar=0;
-        Matriz test = new Matriz(filas,columnas);
-        assertEquals(test.getCelda(1, 1), 0);
-        test.setCelda(dato,1,1);
-        assertEquals(test.getCelda(1, 1), dato);
-        test.setCelda(1,0,0);
-        test.setCelda(2,0,1);
-        test.setCelda(3,1,0);
-        assertEquals(test.getColumnas(), columnas);
-        assertEquals(test.getFilas(), filas);
-        for (int c = 0; c< filas; c++)
-            assertEquals(test.getCelda(c, columnabuscar), test.getColum(columnabuscar)[c]);
 
-        for (int f = 0; f< columnas; f++)
-            assertEquals(test.getCelda(filabuscar, f), test.getFila(filabuscar)[f]);
+        Matrix test1 = new Matrix(filas,columnas);
+        assertEquals(test1.StringMatriz(), "[0 ,0 ,0 ,0]\n" +
+                                                 "[0 ,0 ,0 ,0]\n" +
+                                                 "[0 ,0 ,0 ,0]\n");
 
-        Matriz test2 = new Matriz(test.getMatriz());
-        for (int i = 0; i < filas; i++){
-            for (int j = 0; j < columnas; j++)
-                assertEquals(test2.getCelda(i, j), test.getCelda(i, j));
-        }
-        test.setIterador(true);
-        int celda1f=0,celda1c=-1;
-        for (Object o : test) {
-            int celda = (int) o;
-            if (celda1c != columnas - 1)
-                celda1c++;
-            else {
-                celda1c = 0;
-                celda1f++;
-            }
-            assertEquals(test.getCelda(celda1f, celda1c),celda);
-        }
-        test.setIterador(false);
-        int celda2f=-1,celda2c=0;
-        for (Object o : test) {
-            int celda = (int) o;
-            if (celda2f != filas - 1)
-                celda2f++;
-            else {
-                celda2f = 0;
-                celda2c++;
-            }
-            assertEquals(test.getCelda(celda2f, celda2c),celda);
-        }
+        test1.setCelda(dato,1,1);
+        assertEquals(test1.getCelda(1, 1), dato);
+        test1.setCelda(1,0,0);
+        test1.setCelda(2,0,1);
+        test1.setCelda(3,1,0);
+        assertEquals(test1.StringMatriz(), "[1 ,2 ,0 ,0]\n" +
+                                                 "[3 ,22 ,0 ,0]\n" +
+                                                 "[0 ,0 ,0 ,0]\n");
+        assertEquals(test1.getColumnas(), columnas);
+        assertEquals(test1.getFilas(), filas);
+        assertEquals(Arrays.toString(test1.getColum(columnabuscar)),"[1, 3, 0]");
+        assertEquals(Arrays.toString(test1.getFila(filabuscar)),"[1, 2, 0, 0]");
+
+        Matrix test2 = new Matrix(test1.getMatriz());
+        assertEquals(test2.StringMatriz(), "[1 ,2 ,0 ,0]\n" +
+                                                 "[3 ,22 ,0 ,0]\n" +
+                                                 "[0 ,0 ,0 ,0]\n");
+
+        assertThrows(IndexOutOfBoundsException.class, () -> new Matrix(0,0));
+        assertThrows(IndexOutOfBoundsException.class, () -> test1.getCelda(filas+1,columnas+1));
+        assertThrows(IndexOutOfBoundsException.class, () -> test1.setCelda(dato,filas+1,columnas+1));
+        assertThrows(IndexOutOfBoundsException.class, () -> test1.getColum(columnas+1));
+        assertThrows(IndexOutOfBoundsException.class, () -> test1.getFila(filas+1));
+
 	}
+	@Test
+    void Iteradores(){
+        int filas=3,columnas=4,dato=22;
+
+        Matrix test1 = new Matrix(filas,columnas);
+        test1.setCelda(dato,1,1);
+        test1.setCelda(1,0,0);
+        test1.setCelda(2,0,1);
+        test1.setCelda(3,1,0);
+
+        test1.NexIteradorPrimeroFilas(true);
+        int n=0;
+        int [] Cons = new int [filas*columnas];
+        for (Object o : test1) {
+                int celda = (int) o;
+                Cons [n] = celda;
+                n++;
+        }
+        assertEquals(Arrays.toString(Cons),"[1, 2, 0, 0, 3, 22, 0, 0, 0, 0, 0, 0]");
+
+        test1.NexIteradorPrimeroFilas(false);
+        n=0;
+        for (Object o : test1) {
+                int celda = (int) o;
+                Cons [n] = celda;
+                n++;
+        }
+        assertEquals(Arrays.toString(Cons),"[1, 3, 0, 2, 22, 0, 0, 0, 0, 0, 0, 0]");
+        Iterator M1 = new RowColumnIterator(test1.data);
+        assertThrows(UnsupportedOperationException.class, M1::remove);
+        Iterator M2 = new ColumnRowIterator(test1.data);
+        assertThrows(UnsupportedOperationException.class, M2::remove);
+	}
+	@Test
+        void suma(){
+            int filas=3,columnas=4,dato=22;
+
+            Matrix test1 = new Matrix(filas,columnas);
+            test1.setCelda(dato,1,1);
+            test1.setCelda(1,0,0);
+            test1.setCelda(2,0,1);
+            test1.setCelda(3,1,0);
+            Matrix test2 = new Matrix(test1.getMatriz());
+            MatrixAddition ma = new MatrixAddition();
+
+            assertEquals(ma.sumar(test1,test2).StringMatriz(),"[2 ,4 ,0 ,0]\n" +
+                    "[6 ,44 ,0 ,0]\n" +
+                    "[0 ,0 ,0 ,0]\n");
+            Matrix test3 = new Matrix(filas+1,columnas+1);
+
+            assertThrows(ArithmeticException.class, () -> ma.sumar(test3,test2));
+    }
 }

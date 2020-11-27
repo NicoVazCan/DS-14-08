@@ -21,10 +21,17 @@ public class Matrix implements Iterable{
         }
         else throw new IndexOutOfBoundsException();
     }
+    public boolean Rectangular(int[][] data){
+        int columnas = data[0].length;
+        for(int i=1;i<data.length;i++){
+            if(columnas!=data[i].length)return false;
+        }
+        return true;
+    }
     public Matrix(int[][] data) {
         int filas = data.length;
         int columnas = data[0].length;
-        if(columnas!=filas) {
+        if(columnas!=filas&& Rectangular(data)) {
             this.columnas=columnas;
             this.filas=filas;
             this.data = new int[filas][columnas];

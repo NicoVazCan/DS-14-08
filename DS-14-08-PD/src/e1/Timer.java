@@ -5,9 +5,14 @@ public class Timer extends Modo
 	private static final Timer estado = new Timer();
 	private static int time = 15;
 
-	private Timer() {}
+	private Timer() { modoName = "Timer"; }
 
 	public static Timer getInstance() { return estado; }
+
+	public static void setTime(int time)
+	{
+		Timer.time = time;
+	}
 
 	@Override
 	public String cambiarModo(Termostato term, Modo nextModo)
@@ -25,7 +30,7 @@ public class Timer extends Modo
 		if(time > 0)
 		{
 			time -= 5;
-			return term.currentTemperature + "Modo Timer (faltan" + time + "minutos) - " + term.estado.getText() + ".\n";
+			return term.currentTemperature + "Modo " + modoName + " (faltan" + time + "minutos) - " + term.estado.getText() + ".\n";
 		}
 		else { return super.cambiarModo(term, Off.getInstance()); }
 	}

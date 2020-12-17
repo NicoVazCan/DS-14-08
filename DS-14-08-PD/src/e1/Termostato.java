@@ -1,15 +1,13 @@
 package e1;
 
-import java.util.ArrayList;
-import java.util.List;
 import static e1.Estado.*;
 
 public class Termostato
 {
-	public Estado estado;
-	private Modo modo;
+	public Estado estado = OFF;
+	private Modo modo = Off.getInstance();
 	public float currentTemperature;
-	private List<String> log = new ArrayList<>();
+	private StringBuilder log = new StringBuilder();
 
 	void setOff()
 	{
@@ -39,13 +37,13 @@ public class Termostato
 	
 	void screenInfo()
 	{
-		System.out.println(log);
+		System.out.println(log.toString());
 	}
 
 	void newTemperature(float currentTemperature)
 	{
 		this.currentTemperature = currentTemperature;
-		log.add(modo.impEstado(this));
+		log.append(modo.impEstado(this));
 	}
 
 	void setModo(Modo modo)

@@ -23,15 +23,17 @@ public class Termostato
 		modo.cambiarModo(this, Manual.getInstance());
 	}
 
-	void setTimer()
+	void setTimer(int time)
 	{
 		this.estado = ON;
+		Timer.setTime(time);
 		modo.cambiarModo(this, Timer.getInstance());
 
 	}
 
-	void setProgram()
+	void setProgram(float umbral)
 	{
+		Program.setUmbral(umbral);
 		modo.cambiarModo(this, Program.getInstance());
 	}
 	

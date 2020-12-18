@@ -41,7 +41,8 @@ public class Timer extends Modo
 		{
 			term.setEstado(Estado.OFF);
 			term.setModo(Off.getInstance());
-			return "Se desactiva el modo " + modoName + ".\n";
+			return "Se desactiva el modo " + modoName + ".\n" +
+							term.getModo().impEstado(term);
 		}
 	}
 }

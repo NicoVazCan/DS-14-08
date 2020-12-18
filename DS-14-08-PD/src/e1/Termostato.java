@@ -25,14 +25,12 @@ public class Termostato
 	void setOff()
 	{
 		this.estado = OFF;
-		modo = Off.getInstance();
 		log.append(modo.cambiarModo(this));
 	}
 
 	void setManual()
 	{
 		this.estado = ON;
-		modo = Manual.getInstance();
 		log.append(modo.cambiarModo(this));
 	}
 
@@ -40,7 +38,6 @@ public class Termostato
 	{
 		this.estado = ON;
 		Timer.setTime(time);
-		modo = Timer.getInstance();
 		log.append(modo.cambiarModo(this));
 
 	}
@@ -48,7 +45,6 @@ public class Termostato
 	void setProgram(float umbral)
 	{
 		Program.setUmbral(umbral);
-		modo = Program.getInstance();
 		log.append(modo.cambiarModo(this));
 	}
 	

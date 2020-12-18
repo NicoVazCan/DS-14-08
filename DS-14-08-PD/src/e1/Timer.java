@@ -2,12 +2,16 @@ package e1;
 
 public class Timer extends Modo
 {
-	private static final Timer estado = new Timer();
+	private static final Timer modo = new Timer();
 	private static int time;
 
-	private Timer() { modoName = "Timer"; }
+	private Timer()
+	{
+		modoName = "Timer";
+		estado = Estado.ON;
+	}
 
-	public static Timer getInstance() { return estado; }
+	public static Timer getInstance() { return modo; }
 
 	public static void setTime(int time)
 	{
@@ -39,7 +43,7 @@ public class Timer extends Modo
 		{
 			time -= 5;
 			return term.getCurrentTemperature() + " Modo " + modoName +
-							" (faltan " + time + " minutos) - " + term.getEstado().getText() + ".\n";
+							" (faltan " + time + " minutos) - " + estado.getText() + ".\n";
 		}
 		else
 		{

@@ -9,8 +9,6 @@ public class Termostato
 	private float currentTemperature;
 	private StringBuilder log = new StringBuilder();
 
-	public Estado getEstado() { return estado; }
-
 	public void setEstado(Estado estado) { this.estado = estado; }
 
 	public float getCurrentTemperature() { return currentTemperature; }
@@ -24,28 +22,25 @@ public class Termostato
 
 	void setOff()
 	{
-		this.estado = OFF;
-		log.append(modo.cambiarModo(this));
+		log.append(Off.getInstance().cambiarModo(this));
 	}
 
 	void setManual()
 	{
-		this.estado = ON;
-		log.append(modo.cambiarModo(this));
+		log.append(Manual.getInstance().cambiarModo(this));
 	}
 
 	void setTimer(int time)
 	{
-		this.estado = ON;
 		Timer.setTime(time);
-		log.append(modo.cambiarModo(this));
+		log.append(Timer.getInstance().cambiarModo(this));
 
 	}
 
 	void setProgram(float umbral)
 	{
 		Program.setUmbral(umbral);
-		log.append(modo.cambiarModo(this));
+		log.append(Program.getInstance().cambiarModo(this));
 	}
 	
 	String screenInfo() { return log.toString(); }

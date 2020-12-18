@@ -2,9 +2,13 @@ package e1;
 
 public class Manual extends Modo
 {
-	private static final Manual estado = new Manual();
+	private static final Manual modo = new Manual();
 
-	private Manual() {  modoName = "Manual"; }
+	private Manual()
+	{
+		modoName = "Manual";
+		estado = Estado.ON;
+	}
 
-	public static Manual getInstance() { return estado; }
+	public static Manual getInstance() { return modo; }
 }

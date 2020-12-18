@@ -2,12 +2,12 @@ package e1;
 
 public class Program extends Modo
 {
-	private static final Program estado = new Program();
+	private static final Program modo = new Program();
 	private static float umbral;
 
 	private Program() {  modoName = "Program"; }
 
-	public static Program getInstance() { return estado; }
+	public static Program getInstance() { return modo; }
 
 	public static void setUmbral(float umbral)
 	{
@@ -30,9 +30,10 @@ public class Program extends Modo
 	@Override
 	public String impEstado(Termostato term)
 	{
-		term.setEstado(term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF);
+		estado = term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF;
 
+		term.setEstado(estado);
 		return term.getCurrentTemperature() + " Modo " + modoName +
-						" (a " + umbral + " grados) - " + term.getEstado().getText() + ".\n";
+						" (a " + umbral + " grados) - " + estado.getText() + ".\n";
 	}
 }

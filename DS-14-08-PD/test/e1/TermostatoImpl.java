@@ -48,7 +48,7 @@ public class TermostatoImpl {
         t.newTemperature(20);
         t.setOff();
         t.newTemperature(0);
-        assertEquals("Se activa el modo Program a 20.0 grados .\n"+
+        assertEquals("Se activa el modo Program a 20.0 grados.\n"+
                              "21.0 Modo Program (a 20.0 grados) - Calefaccion apagada.\n"+
                              "19.0 Modo Program (a 20.0 grados) - Calefaccion encendida.\n"+
                              "22.0 Modo Program (a 20.0 grados) - Calefaccion apagada.\n"+
@@ -68,6 +68,6 @@ public class TermostatoImpl {
         Termostato t = new Termostato();
         t.setTimer(20);
         assertThrows(IllegalStateException.class, () -> t.setProgram(20));
-        assertThrows(IllegalStateException.class, () -> t.setTimer(-1));
+        assertThrows(IllegalArgumentException.class, () -> t.setTimer(-1));
     }
 }

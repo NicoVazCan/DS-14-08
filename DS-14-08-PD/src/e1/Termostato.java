@@ -4,47 +4,61 @@ import static e1.Estado.*;
 
 public class Termostato
 {
-	public Estado estado = OFF;
+	private Estado estado = OFF;
 	private Modo modo = Off.getInstance();
-	public float currentTemperature;
+	private float currentTemperature;
 	private StringBuilder log = new StringBuilder();
+
+	public Estado getEstado() { return estado; }
+
+	public void setEstado(Estado estado) { this.estado = estado; }
+
+	public float getCurrentTemperature() { return currentTemperature; }
+
+	public void setCurrentTemperature(float currentTemperature)
+	{
+		this.currentTemperature = currentTemperature;
+	}
 
 	void setOff()
 	{
 		this.estado = OFF;
-		modo.cambiarModo(this, Off.getInstance());
+		modo = Off.getInstance();
+		log.append(modo.cambiarModo(this));
 	}
 
 	void setManual()
 	{
 		this.estado = ON;
-		modo.cambiarModo(this, Manual.getInstance());
+		modo = Manual.getInstance();
+		log.append(modo.cambiarModo(this));
 	}
 
 	void setTimer(int time)
 	{
 		this.estado = ON;
 		Timer.setTime(time);
-		modo.cambiarModo(this, Timer.getInstance());
+		modo = Timer.getInstance();
+		log.append(modo.cambiarModo(this));
 
 	}
 
 	void setProgram(float umbral)
 	{
 		Program.setUmbral(umbral);
-		modo.cambiarModo(this, Program.getInstance());
+		modo = Program.getInstance();
+		log.append(modo.cambiarModo(this));
 	}
 	
-	void screenInfo()
-	{
-		System.out.println(log.toString());
-	}
+	String screenInfo() { return log.toString(); }
 
 	void newTemperature(float currentTemperature)
 	{
 		this.currentTemperature = currentTemperature;
 		log.append(modo.impEstado(this));
 	}
+
+	public Modo getModo() { return modo; }
 
 	void setModo(Modo modo)
 	{

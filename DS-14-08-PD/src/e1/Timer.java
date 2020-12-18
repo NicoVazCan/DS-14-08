@@ -3,7 +3,7 @@ package e1;
 public class Timer extends Modo
 {
 	private static final Timer estado = new Timer();
-	private static int time = 15;
+	private static int time;
 
 	private Timer() { modoName = "Timer"; }
 
@@ -15,23 +15,33 @@ public class Timer extends Modo
 	}
 
 	@Override
-	public String cambiarModo(Termostato term, Modo nextModo)
+	public String cambiarModo(Termostato term)
 	{
-		if(nextModo instanceof Program)
+		if(term.getModo() instanceof Program)
 		{
 			throw new IllegalStateException();
 		}
-		else { return super.cambiarModo(term, nextModo); }
+		else
+		{
+			term.setModo(this);
+			return "Se activa el modo " + modoName + " " + time + " minutos.\n";
+		}
 	}
 
 	@Override
 	public String impEstado(Termostato term)
 	{
-		if(time > 0)
+		if(time >= 5)
 		{
 			time -= 5;
-			return term.currentTemperature + "Modo " + modoName + " (faltan" + time + "minutos) - " + term.estado.getText() + ".\n";
+			return term.getCurrentTemperature() + "Modo " + modoName +
+							" (faltan" + time + "minutos) - " + term.getEstado().getText() + ".\n";
 		}
-		else { return super.cambiarModo(term, Off.getInstance()); }
+		else
+		{
+			term.setEstado(Estado.OFF);
+			term.setModo(Off.getInstance());
+			return "Se desactiva el modo " + time + " .\n";
+		}
 	}
 }

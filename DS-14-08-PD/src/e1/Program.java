@@ -3,7 +3,7 @@ package e1;
 public class Program extends Modo
 {
 	private static final Program estado = new Program();
-	private static float umbral = 20;
+	private static float umbral;
 
 	private Program() {  modoName = "Program"; }
 
@@ -15,20 +15,24 @@ public class Program extends Modo
 	}
 
 	@Override
-	public String cambiarModo(Termostato term, Modo nextModo)
+	public String cambiarModo(Termostato term)
 	{
-		if(nextModo instanceof Timer)
+		if(term.getModo() instanceof Timer)
 		{
 			throw new IllegalStateException();
 		}
-		else { return super.cambiarModo(term, nextModo); }
+		else
+		{
+			return "Se activa el modo " + modoName + " a " + umbral + " grados .";
+		}
 	}
 
 	@Override
 	public String impEstado(Termostato term)
 	{
-		term.estado = term.currentTemperature < umbral? Estado.ON: Estado.OFF;
+		term.setEstado(term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF);
 
-		return term.currentTemperature + "Modo " + modoName + " (a " + umbral + " grados) - " + term.estado.getText() + ".\n";
+		return term.getCurrentTemperature() + "Modo " + modoName +
+						" (a " + umbral + " grados) - " + term.getEstado().getText() + ".\n";
 	}
 }

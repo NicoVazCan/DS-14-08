@@ -4,14 +4,14 @@ public abstract class Modo
 {
 	String modoName;
 
-	public String cambiarModo(Termostato term, Modo nextModo)
+	public String cambiarModo(Termostato term)
 	{
-		term.setModo(nextModo);
-		return "Se activa el modo " + nextModo.modoName + ".\n";
+		term.setModo(this);
+		return "Se activa el modo " + modoName + ".\n";
 	}
 
 	public String impEstado(Termostato term)
 	{
-		return term.currentTemperature + "Modo " + modoName + " - " + term.estado.getText() + ".\n";
+		return term.getCurrentTemperature() + "Modo " + modoName + " - " + term.getEstado().getText() + ".\n";
 	}
 }

@@ -11,7 +11,11 @@ public class Timer extends Modo
 
 	public static void setTime(int time)
 	{
-		Timer.time = time;
+		if(time <= 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		else { Timer.time = time; }
 	}
 
 	@Override

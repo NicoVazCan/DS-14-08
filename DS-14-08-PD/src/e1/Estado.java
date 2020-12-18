@@ -2,7 +2,7 @@ package e1;
 
 public enum Estado
 {
-	ON("Calefaccion apagada"), OFF("Calefaccion encendida");
+	ON("Calefaccion encendida"), OFF("Calefaccion apagada");
 
 	private final String text;
 

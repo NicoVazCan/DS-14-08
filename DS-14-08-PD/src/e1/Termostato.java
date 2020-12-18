@@ -15,9 +15,11 @@ public class Termostato
 
 	public float getCurrentTemperature() { return currentTemperature; }
 
-	public void setCurrentTemperature(float currentTemperature)
+	public Modo getModo() { return modo; }
+
+	void setModo(Modo modo)
 	{
-		this.currentTemperature = currentTemperature;
+		this.modo = modo;
 	}
 
 	void setOff()
@@ -56,12 +58,5 @@ public class Termostato
 	{
 		this.currentTemperature = currentTemperature;
 		log.append(modo.impEstado(this));
-	}
-
-	public Modo getModo() { return modo; }
-
-	void setModo(Modo modo)
-	{
-		this.modo = modo;
 	}
 }

@@ -34,14 +34,14 @@ public class Timer extends Modo
 		if(time >= 5)
 		{
 			time -= 5;
-			return term.getCurrentTemperature() + "Modo " + modoName +
-							" (faltan" + time + "minutos) - " + term.getEstado().getText() + ".\n";
+			return term.getCurrentTemperature() + " Modo " + modoName +
+							" (faltan " + time + " minutos) - " + term.getEstado().getText() + ".\n";
 		}
 		else
 		{
 			term.setEstado(Estado.OFF);
 			term.setModo(Off.getInstance());
-			return "Se desactiva el modo " + time + " .\n";
+			return "Se desactiva el modo " + time + ".\n";
 		}
 	}
 }

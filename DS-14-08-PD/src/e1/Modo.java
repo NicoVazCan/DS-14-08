@@ -12,6 +12,6 @@ public abstract class Modo
 
 	public String impEstado(Termostato term)
 	{
-		return term.getCurrentTemperature() + "Modo " + modoName + " - " + term.getEstado().getText() + ".\n";
+		return term.getCurrentTemperature() + " Modo " + modoName + " - " + term.getEstado().getText() + ".\n";
 	}
 }

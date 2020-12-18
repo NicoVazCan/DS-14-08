@@ -32,7 +32,7 @@ public class Program extends Modo
 	{
 		term.setEstado(term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF);
 
-		return term.getCurrentTemperature() + "Modo " + modoName +
+		return term.getCurrentTemperature() + " Modo " + modoName +
 						" (a " + umbral + " grados) - " + term.getEstado().getText() + ".\n";
 	}
 }

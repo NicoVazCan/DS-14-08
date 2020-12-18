@@ -23,7 +23,7 @@ public class Program extends Modo
 		}
 		else
 		{
-			return "Se activa el modo " + modoName + " a " + umbral + " grados .";
+			return "Se activa el modo " + modoName + " a " + umbral + " grados .\n";
 		}
 	}
 

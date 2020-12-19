@@ -5,7 +5,7 @@ public class Program extends Modo
 	private static final Program modo = new Program();
 	private static float umbral;
 
-	private Program() {  modoName = "Program"; }
+	private Program() { super("Program", Estado.OFF); }
 
 	public static Program getInstance() { return modo; }
 
@@ -23,18 +23,20 @@ public class Program extends Modo
 		}
 		else
 		{
+			term.setEstado(term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF);
 			term.setModo(this);
-			return "Se activa el modo " + modoName + " a " + umbral + " grados.\n";
+			return "Se activa el modo " + getModoName() + " a " + umbral + " grados.\n";
 		}
 	}
 
 	@Override
 	public String impEstado(Termostato term)
 	{
-		estado = term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF;
+		Estado actual = term.getCurrentTemperature() < umbral? Estado.ON: Estado.OFF;
 
-		term.setEstado(estado);
-		return term.getCurrentTemperature() + " Modo " + modoName +
-						" (a " + umbral + " grados) - " + estado.getText() + ".\n";
+		super.setEstado(actual);
+		term.setEstado(actual);
+		return term.getCurrentTemperature() + " Modo " + getModoName() +
+						" (a " + umbral + " grados) - " + actual.getText() + ".\n";
 	}
 }

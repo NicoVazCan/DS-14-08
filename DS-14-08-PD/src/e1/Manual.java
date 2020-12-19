@@ -6,8 +6,7 @@ public class Manual extends Modo
 
 	private Manual()
 	{
-		modoName = "Manual";
-		estado = Estado.ON;
+		super("Manual", Estado.ON);
 	}
 
 	public static Manual getInstance() { return modo; }

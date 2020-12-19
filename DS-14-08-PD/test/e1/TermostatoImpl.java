@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TermostatoImpl {
 
     @Test
-    void TermoOFFONOFF() {
+    void termoOFFONOFF() {
         Termostato t = new Termostato();
         t.newTemperature(21);
         assertEquals("21.0 Modo Off - Calefaccion apagada.\n",t.screenInfo());
@@ -21,7 +21,7 @@ public class TermostatoImpl {
                              "20.0 Modo Off - Calefaccion apagada.\n",t.screenInfo());
     }
     @Test
-    void TermoTimer() {
+    void termoTimer() {
         Termostato t = new Termostato();
         assertEquals("",t.screenInfo());
         t.setTimer(19);
@@ -37,7 +37,7 @@ public class TermostatoImpl {
                              "21.0 Modo Off - Calefaccion apagada.\n",t.screenInfo());
     }
     @Test
-    void TermoProgram(){
+    void termoProgram(){
         Termostato t = new Termostato();
         t.screenInfo();
         t.setProgram(20);
@@ -58,16 +58,59 @@ public class TermostatoImpl {
                              "0.0 Modo Off - Calefaccion apagada.\n",t.screenInfo());
     }
     @Test
-    void TermoErroresPro(){
+    void termoErroresPro(){
         Termostato t = new Termostato();
         t.setProgram(20);
         assertThrows(IllegalStateException.class, () -> t.setTimer(20));
     }
     @Test
-    void TermoErroresTim(){
+    void termoErroresTim(){
         Termostato t = new Termostato();
         t.setTimer(20);
         assertThrows(IllegalStateException.class, () -> t.setProgram(20));
         assertThrows(IllegalArgumentException.class, () -> t.setTimer(-1));
+    }
+    @Test
+    void termoEstado(){
+        Termostato t = new Termostato();
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.setOff();
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.setManual();
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.setOff();
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.setTimer(10);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.setProgram(20);
+        t.newTemperature(21);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.newTemperature(19);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.setProgram(21);
+        t.newTemperature(19);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(20);
+        assertEquals(t.getEstado(), Estado.ON);
+        t.newTemperature(21);
+        assertEquals(t.getEstado(), Estado.OFF);
+        t.setOff();
+        assertEquals(t.getEstado(), Estado.OFF);
     }
 }

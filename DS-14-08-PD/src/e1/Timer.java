@@ -5,11 +5,7 @@ public class Timer extends Modo
 	private static final Timer modo = new Timer();
 	private static int time;
 
-	private Timer()
-	{
-		modoName = "Timer";
-		estado = Estado.ON;
-	}
+	private Timer() { super("Timer", Estado.ON); }
 
 	public static Timer getInstance() { return modo; }
 
@@ -31,8 +27,9 @@ public class Timer extends Modo
 		}
 		else
 		{
+			term.setEstado(super.getEstado());
 			term.setModo(this);
-			return "Se activa el modo " + modoName + " " + time + " minutos.\n";
+			return "Se activa el modo " + getModoName() + " " + time + " minutos.\n";
 		}
 	}
 
@@ -42,14 +39,14 @@ public class Timer extends Modo
 		if(time >= 5)
 		{
 			time -= 5;
-			return term.getCurrentTemperature() + " Modo " + modoName +
-							" (faltan " + time + " minutos) - " + estado.getText() + ".\n";
+			return term.getCurrentTemperature() + " Modo " + getModoName() +
+							" (faltan " + time + " minutos) - " + getEstado().getText() + ".\n";
 		}
 		else
 		{
 			term.setEstado(Estado.OFF);
 			term.setModo(Off.getInstance());
-			return "Se desactiva el modo " + modoName + ".\n" +
+			return "Se desactiva el modo " + getModoName() + ".\n" +
 							term.getModo().impEstado(term);
 		}
 	}

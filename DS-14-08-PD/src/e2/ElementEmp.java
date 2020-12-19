@@ -2,16 +2,24 @@ package e2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class ElementEmp
 {
 	private final String name;
 	private final String elemType;
+	private static List<ElementEmp> instancias = new ArrayList<>();
 
 	ElementEmp(String name, String elemType)
 	{
 		this.name = name;
 		this.elemType = elemType;
+
+		if(!instancias.contains(this))
+		{
+			instancias.add(this);
+		}
+		else { throw new IllegalArgumentException(); }
 	}
 
 	public abstract int getCost();
@@ -45,5 +53,21 @@ public abstract class ElementEmp
 		List<LeafElem> personal = new ArrayList<>();
 		filter(personal, pro.getComponents());
 		return personal;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o) return true;
+		if(!(o instanceof ElementEmp)) return false;
+		ElementEmp that = (ElementEmp) o;
+		return Objects.equals(name, that.name) &&
+						Objects.equals(elemType, that.elemType);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(name, elemType);
 	}
 }

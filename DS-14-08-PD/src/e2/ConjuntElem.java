@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class ConjuntElem extends ElementEmp
 {
-	private List<ElementEmp> components = new ArrayList<>();
+	private final List<ElementEmp> components = new ArrayList<>();
 
 	ConjuntElem(String name, String elemType) { super(name, elemType); }
 
@@ -45,17 +45,32 @@ public abstract class ConjuntElem extends ElementEmp
 		return horas;
 	}
 
-	@Override
-	public String getInfo()
+
+	private String getInfo(int ntabs)
 	{
 		StringBuilder info = new StringBuilder(super.getInfo());
 
 		for(ElementEmp e: components)
 		{
-			info.append("\t");
-			info.append(e.getInfo());
+			info.append("\t".repeat(ntabs));
+
+			if(e instanceof ConjuntElem)
+			{
+				info.append(((ConjuntElem) e).getInfo(ntabs+1));
+			}
+			else if(e instanceof LeafElem)
+			{
+				info.append(e.getInfo());
+			}
+			else { throw new ArrayStoreException(); }
 		}
 		return info.toString();
+	}
+
+	@Override
+	public String getInfo()
+	{
+		return getInfo(1);
 	}
 
 	private static boolean find(ElementEmp elem, List<ElementEmp> list)

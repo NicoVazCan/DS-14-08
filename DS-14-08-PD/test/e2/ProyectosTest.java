@@ -1,6 +1,5 @@
 package e2;
 
-import e1.Termostato;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProyectosTest {
 
     @Test
-    void Proyecto() {
+    void proyecto() {
         Proyecto p1 = new Proyecto("Practica.1");
         Equipo e1 = new Equipo("Ejer.1");
         Equipo e2 = new Equipo("Ejer.2");
@@ -31,7 +30,7 @@ public class ProyectosTest {
         assertEquals("Team Ejer.1: 30 hours, 400 €\n" +
                            "\tWorker Diego: 10 hours, 200 €\n" +
                            "\tWorker Nicolas: 20 hours, 200 €\n",e1.getInfo());
-        //assertEquals("Team Ejer.2: 0 hours, 0 €\n",e2.getInfo());
+
         assertEquals(10*20*2,e1.getCost());
         assertEquals(30,e1.getHoras());
 
@@ -45,24 +44,27 @@ public class ProyectosTest {
         p1.addComp(x);
         assertEquals("Project Practica.1: 40 hours, 500 €\n" +
                            "\tTeam Ejer.1: 10 hours, 200 €\n"+
-                           "\tWorker Diego: 10 hours, 200 €\n"+
+                           "\t\tWorker Diego: 10 hours, 200 €\n"+
                            "\tTeam Ejer.2: 20 hours, 200 €\n"+
-                           "\tWorker Nicolas: 20 hours, 200 €\n"+
+                           "\t\tWorker Nicolas: 20 hours, 200 €\n"+
                            "\tWorker x: 10 hours, 100 €\n",p1.getInfo());
         assertEquals(500,p1.getCost());
         assertEquals(40,p1.getHoras());
         p1.removeComp(x);
         p1.removeComp(e1);
-        //List<LeafElem> personal = new ArrayList<>();
-        //p1.getComponents();
-        //p1.getComps(p1);
-        //assertEquals(personal,e1.getComps(p1));
-        //hascode
+
+        List<LeafElem> personal = new ArrayList<>();
+        personal.add(d);
+        personal.add(n);
+
+        assertTrue(personal.containsAll(p1.getComps(p1)));
+        assertTrue(personal.containsAll(e1.getComps(p1)));
+        assertTrue(personal.containsAll(e2.getComps(p1)));
+        assertTrue(personal.containsAll(d.getComps(p1)));
+        assertTrue(personal.containsAll(n.getComps(p1)));
+
         assertThrows(IllegalArgumentException.class, () -> new Proyecto("Practica.1"));
         assertThrows(IllegalArgumentException.class, () -> new Equipo("Ejer.1"));
         assertThrows(IllegalArgumentException.class, () -> new Trabajador("Diego", 20,10));
-
     }
-
-
 }

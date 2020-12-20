@@ -8,7 +8,7 @@ public abstract class ElementEmp
 {
 	private final String name;
 	private final String elemType;
-	private static List<ElementEmp> instancias = new ArrayList<>();
+	private static final List<ElementEmp> instancias = new ArrayList<>();
 
 	ElementEmp(String name, String elemType)
 	{
@@ -63,11 +63,5 @@ public abstract class ElementEmp
 		ElementEmp that = (ElementEmp) o;
 		return Objects.equals(name, that.name) &&
 						Objects.equals(elemType, that.elemType);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return Objects.hash(name, elemType);
 	}
 }

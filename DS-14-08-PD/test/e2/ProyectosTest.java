@@ -42,6 +42,11 @@ public class ProyectosTest {
         Trabajador x = new Trabajador("x",10,10);
         p1.addComp(n);
         p1.addComp(x);
+        Equipo e3 = new Equipo("Ejer.3");
+        e3.addComp(x);
+        p1.addComp(e3);
+        Proyecto p2 = new Proyecto("Practica.2");
+        p1.addComp(p2);
         assertEquals("Project Practica.1: 40 hours, 500 €\n" +
                            "\tTeam Ejer.1: 10 hours, 200 €\n"+
                            "\t\tWorker Diego: 10 hours, 200 €\n"+
@@ -57,11 +62,7 @@ public class ProyectosTest {
         personal.add(d);
         personal.add(n);
 
-        assertTrue(personal.containsAll(p1.getComps(p1)));
-        assertTrue(personal.containsAll(e1.getComps(p1)));
-        assertTrue(personal.containsAll(e2.getComps(p1)));
-        assertTrue(personal.containsAll(d.getComps(p1)));
-        assertTrue(personal.containsAll(n.getComps(p1)));
+        assertTrue(personal.containsAll(Proyecto.getComps(p1)));
 
         assertThrows(IllegalArgumentException.class, () -> new Proyecto("Practica.1"));
         assertThrows(IllegalArgumentException.class, () -> new Equipo("Ejer.1"));

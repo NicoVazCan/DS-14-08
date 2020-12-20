@@ -47,11 +47,11 @@ public abstract class ElementEmp
 		}
 	}
 
-	public List<LeafElem> getComps(Proyecto pro)
+	public static List<LeafElem> getComps(ConjuntElem conj)
 	{
 
 		List<LeafElem> personal = new ArrayList<>();
-		filter(personal, pro.getComponents());
+		filter(personal, conj.getComponents());
 		return personal;
 	}
 

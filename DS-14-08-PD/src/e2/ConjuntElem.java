@@ -11,7 +11,15 @@ public abstract class ConjuntElem extends ElementEmp
 
 	public void addComp(ElementEmp comp)
 	{
-		if(!this.equals(comp) && !find(comp, components))
+		boolean containsSome = false;
+		if(comp instanceof ConjuntElem)
+		{
+			for(LeafElem a: getComps(this))
+			{
+				for(LeafElem b: getComps((ConjuntElem) comp)) { containsSome = containsSome || a.equals(b); }
+			}
+		}
+		if(!this.equals(comp) && !find(comp, components) && !containsSome)
 		{
 			components.add(comp);
 		}
